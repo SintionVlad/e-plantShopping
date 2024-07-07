@@ -236,6 +236,13 @@ function ProductList() {
            [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
          }));
       };
+      const getTotalCartItems = () => {
+        let totalItems = 0;
+        cartItems.forEach(item => {
+          totalItems += item.quantity;
+        });
+        return totalItems;
+      };
     return (
         <div>
             <div className="navbar" style={styleObj}>
