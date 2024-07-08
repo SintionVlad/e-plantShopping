@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
+import { useDispatch } from 'react-redux';
+import { addItem } from './CreatSlice'; // Adjust the path as necessary
 function ProductList() {
-
+    const dispatch = useDispatch();
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -229,6 +231,7 @@ function ProductList() {
         fontSize: '30px',
         textDecoration: 'none',
     }
+    const [addedToCart, setAddedToCart] = useState([]);
     const handleAddToCart = (product) => {
         dispatch(addItem(product));
         setAddedToCart((prevState) => ({
@@ -271,20 +274,20 @@ function ProductList() {
                         <div className="product-list">
                             {category.plants.map((plant, plantIndex) => (
                                 <div className="product-card" key={plantIndex}>
-                                    <img className="product-image" src={plant.image} alt={plant.name} />
-                                    <div className="product-title">{plant.name}</div>
-            /*Similarly like the above plant.name show other details like description and cost*/
-                                    <button onClick={() => handleAddToCart(plant)}>Add to Cart</button>
-                                </div>
+                                <img className="product-image" src={plant.image} alt={plant.name} />
+                                <div className="product-title">{plant.name}</div>
+                                <div className="product-description">{plant.description}</div>
+                                <div className="product-cost">${plant.cost}</div>
+                                <button onClick={() => handleAddToCart(plant)}>
+                                  {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
+                                </button>
+                              </div>
                             ))}
                         </div>
                     </div>
                 ))}
-
             </div>
-
         </div>
     );
 }
-
 export default ProductList;
