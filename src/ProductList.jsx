@@ -282,10 +282,10 @@ function ProductList() {
                         <div className="product-list">
                             {category.plants.map((plant, plantIndex) => (
                                 <div className="product-card" key={plantIndex}>
-                                    <img className="product-image" src={plant.image} alt={plant.name} />
                                     <div className="product-title">{plant.name}</div>
-                                    <div className="product-description">{plant.description}</div>
+                                    <img className="product-image" src={plant.image} alt={plant.name} />
                                     <div className="product-cost">${plant.cost}</div>
+                                    <div className="product-description">{plant.description}</div>
                                     <button
                                         style={{
                                             backgroundColor: addedToCart[plant.name] ? '#ccc' : '#4caf50',
