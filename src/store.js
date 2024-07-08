@@ -1,11 +1,11 @@
 // store.js
 
 import { configureStore } from '@reduxjs/toolkit';
-import cartReducer from './CreatSlice'; // Make sure to adjust the path
+import cartReducer from './CreatSlice'; // Importăm reducer-ul creat
 
 const store = configureStore({
   reducer: {
-    cart: cartReducer,
+    cart: cartReducer, // Adăugăm reducer-ul în magazin
   },
 });
 

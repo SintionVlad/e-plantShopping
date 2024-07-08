@@ -2,29 +2,57 @@
 
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, updateQuantity } from './CreatSlice'; // Adjust the path
+import { removeItem, updateQuantity } from './CreateSlice'; // Importăm acțiunile necesare
 
-const CartItem = ({ name, image, cost, quantity }) => {
+const CartItem = () => {
   const dispatch = useDispatch();
+  const items = useSelector(state => state.cart.items);
 
-  const handleRemove = () => {
+  const handleIncrement = (name) => {
+    const itemToUpdate = items.find(item => item.name === name);
+    if (itemToUpdate) {
+      dispatch(updateQuantity({ name, quantity: itemToUpdate.quantity + 1 }));
+    }
+  };
+
+  const handleDecrement = (name) => {
+    const itemToUpdate = items.find(item => item.name === name);
+    if (itemToUpdate) {
+      if (itemToUpdate.quantity > 1) {
+        dispatch(updateQuantity({ name, quantity: itemToUpdate.quantity - 1 }));
+      } else {
+        dispatch(removeItem(name));
+      }
+    }
+  };
+
+  const handleRemove = (name) => {
     dispatch(removeItem(name));
   };
 
-  const handleQuantityChange = (event) => {
-    const newQuantity = parseInt(event.target.value, 10);
-    dispatch(updateQuantity({ name, quantity: newQuantity }));
+  const calculateSubtotal = (item) => {
+    return item.quantity * item.cost;
+  };
+
+  const calculateTotalAmount = () => {
+    return items.reduce((total, item) => total + calculateSubtotal(item), 0);
   };
 
   return (
     <div className="cart-item">
-      <img src={image} alt={name} />
-      <div>{name}</div>
-      <div>${cost}</div>
-      <div>
-        <input type="number" value={quantity} onChange={handleQuantityChange} />
+      {items.map((item, index) => (
+        <div key={index} className="item">
+          <span>{item.name}</span>
+          <button onClick={() => handleIncrement(item.name)}>+</button>
+          <span>{item.quantity}</span>
+          <button onClick={() => handleDecrement(item.name)}>-</button>
+          <span>${calculateSubtotal(item)}</span>
+          <button onClick={() => handleRemove(item.name)}>Remove</button>
+        </div>
+      ))}
+      <div className="total">
+        <span>Total: ${calculateTotalAmount()}</span>
       </div>
-      <button onClick={handleRemove}>Remove</button>
     </div>
   );
 };
