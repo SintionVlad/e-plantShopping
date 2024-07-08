@@ -1,11 +1,13 @@
+// main.jsx (or App.js)
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'; // Importăm Provider din react-redux
-import App from './App';
-import store from './store'; // Importăm store-ul Redux configurat
+import { Provider } from 'react-redux';
+import store from './store'; // Adjust the path
+import App from './App'; // Adjust the path
 
 ReactDOM.render(
-  <Provider store={store}> {/* Încapsulăm App cu Provider și pasăm store-ul */}
+  <Provider store={store}>
     <App />
   </Provider>,
   document.getElementById('root')

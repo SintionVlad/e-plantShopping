@@ -1,10 +1,14 @@
+// CreateSlice.jsx
+
 import { createSlice } from '@reduxjs/toolkit';
 
-export const CreatSlice = createSlice({
+const initialState = {
+  items: [], // This will hold the items in the cart
+};
+
+const cartSlice = createSlice({
   name: 'cart',
-  initialState: {
-    items: [], // Initialize items as an empty array
-  },
+  initialState,
   reducers: {
     addItem: (state, action) => {
       const { name, image, cost } = action.payload;
@@ -28,6 +32,5 @@ export const CreatSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem, updateQuantity } = CreatSlice.actions;
-
-export default CreatSlice.reducer;
+export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
+export default cartSlice.reducer;
