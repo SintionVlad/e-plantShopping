@@ -318,8 +318,8 @@
 //   };
 
 //   return (
-    
-    
+
+
 
 //     <div className="cart-item">
 //       <h2>Shopping Cart</h2>
@@ -472,9 +472,17 @@ const CartItem = ({ goToProductList }) => {
           </div>
         </div>
       </div>
-      <h3 onClick={goToProductList}>Plants</h3>
+      <a onClick={goToProductList}
+        style={{
+          color: 'white',
+          fontSize: '30px',
+          textDecoration: 'none',
+          // paddingRight: '22%',
+        }}>
+        Plants
+      </a>
       <div className="menu">
-        <a href="#"  style={{ color: 'white', fontSize: '30px', textDecoration: 'none' }}>
+        <a href="#" style={{ color: 'white', fontSize: '30px', textDecoration: 'none' }}>
           <h1 className='cart'>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68">
               <rect width="156" height="156" fill="none"></rect>
