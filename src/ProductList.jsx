@@ -219,13 +219,15 @@ function ProductList() {
     ];
 
     const handleAddToCart = (product) => {
+    if (!addedToCart[product.name]) {
         dispatch(addItem(product));
         setAddedToCart((prevState) => ({
             ...prevState,
             [product.name]: true,
         }));
-        setCartItemCount((prevCount) => prevCount + 1); // Incrementăm numărul de produse adăugate în coș
-    };
+        setCartItemCount((prevCount) => prevCount + 1);
+    }
+};
 
     const handleCartIconClick = () => {
         setShowCartPage(true); // Setăm starea pentru a afișa pagina CartItem
@@ -243,7 +245,7 @@ function ProductList() {
                         <div className="tag">
                             <div className="luxury">
                                 <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" />
-                                <div style={{ marginLeft: "5px" }}>
+                                <div style={{ marginLeft: "30px" }}>
                                     <h3 style={{ color: 'white' }}>Paradise Nursery</h3>
                                     <i style={{ color: 'white' }}>Where Green Meets Serenity</i>
                                 </div>
@@ -256,7 +258,7 @@ function ProductList() {
                                     color: 'white',
                                     fontSize: '30px',
                                     textDecoration: 'none',
-                                    
+                                    // paddingRight: '22%',
                                 }}>
                                 Plants
                             </a>
@@ -279,7 +281,7 @@ function ProductList() {
                     <div className="product-grid">
                         {plantsArray.map((category, index) => (
                             <div key={index}>
-                                <h1>{category.category}</h1>
+                                <h1 style={{textAlign:'center'}}>{category.category}</h1>
                                 <div className="product-list">
                                     {category.plants.map((plant, plantIndex) => (
                                         <div className="product-card" key={plantIndex}>
