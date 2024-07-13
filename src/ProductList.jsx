@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import './ProductList.css'; // Importăm stilurile pentru ProductList
+import './ProductList.css';
 import { useDispatch } from 'react-redux';
-import { addItem } from './CreatSlice'; // Adjust the path as necessary
-import CartItem from './CartItem'; // Importăm componenta CartItem
+import { addItem } from './CreatSlice';
+import CartItem from './CartItem';
 
 function ProductList() {
     const [addedToCart, setAddedToCart] = useState({});
     const [cartItemCount, setCartItemCount] = useState(0);
     const dispatch = useDispatch();
-    const [showCartPage, setShowCartPage] = useState(false); // Starea pentru afișarea paginii CartItem
+    const [showCartPage, setShowCartPage] = useState(false);
 
     const plantsArray = [
         {
@@ -219,94 +219,87 @@ function ProductList() {
     ];
 
     const handleAddToCart = (product) => {
-    if (!addedToCart[product.name]) {
-        dispatch(addItem(product));
-        setAddedToCart((prevState) => ({
-            ...prevState,
-            [product.name]: true,
-        }));
-        setCartItemCount((prevCount) => prevCount + 1);
-    }
-};
+        if (!addedToCart[product.name]) {
+            dispatch(addItem(product));
+            setAddedToCart((prevState) => ({
+                ...prevState,
+                [product.name]: true,
+            }));
+            setCartItemCount((prevCount) => prevCount + 1);
+        }
+    };
 
     const handleCartIconClick = () => {
-        setShowCartPage(true); // Setăm starea pentru a afișa pagina CartItem
+        setShowCartPage(true);
     };
 
     const goToProductList = () => {
-        setShowCartPage(false); // Setăm starea pentru a reveni la pagina ProductList
+        setShowCartPage(false);
     };
 
     return (
         <div>
-            {!showCartPage ? ( // Verificăm dacă trebuie să afișăm pagina CartItem sau ProductList
-                <div>
-                    <div className="navbar">
-                        <div className="tag">
-                            <div className="luxury">
-                                <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" />
-                                <div style={{ marginLeft: "30px" }}>
-                                    <h3 style={{ color: 'white' }}>Paradise Nursery</h3>
-                                    <i style={{ color: 'white' }}>Where Green Meets Serenity</i>
-                                </div>
-
-                            </div>
-                        </div>
-                       
-                            <a onClick={goToProductList}
-                                style={{
-                                    color: 'white',
-                                    fontSize: '30px',
-                                    textDecoration: 'none',
-                                    // paddingRight: '22%',
-                                }}>
-                                Plants
-                            </a>
-                        
-                        <div className="menu">
-                            <a href="#" onClick={handleCartIconClick} style={{ color: 'white', fontSize: '30px', textDecoration: 'none' }}>
-                                <h1 className='cart'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68">
-                                        <rect width="156" height="156" fill="none"></rect>
-                                        <circle cx="80" cy="216" r="12"></circle>
-                                        <circle cx="184" cy="216" r="12"></circle>
-                                        <path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" id="mainIconPathAttribute"></path>
-                                    </svg>
-                                    <span className="cart_quantity_count">{cartItemCount}</span> {/* Afisarea numarului de produse */}
-                                </h1>
-                            </a>
+            <div className="navbar">
+                <div className="tag">
+                    <div className="luxury">
+                        <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" />
+                        <div style={{ marginLeft: "30px" }}>
+                            <h3 style={{ color: 'white' }}>Paradise Nursery</h3>
+                            <i style={{ color: 'white' }}>Where Green Meets Serenity</i>
                         </div>
                     </div>
-
-                    <div className="product-grid">
-                        {plantsArray.map((category, index) => (
-                            <div key={index}>
-                                <h1 style={{textAlign:'center'}}>{category.category}</h1>
-                                <div className="product-list">
-                                    {category.plants.map((plant, plantIndex) => (
-                                        <div className="product-card" key={plantIndex}>
-                                            <div className="product-title">{plant.name}</div>
-                                            <img className="product-image" src={plant.image} alt={plant.name} />
-                                            <div className="product-cost">${plant.cost}</div>
-                                            <div className="product-description">{plant.description}</div>
-                                            <button
-                                                style={{
-                                                    backgroundColor: addedToCart[plant.name] ? '#ccc' : '#4caf50',
-                                                    color: '#fff',
-                                                    padding: '8px 16px',
-                                                    border: 'none',
-                                                    cursor: 'pointer',
-                                                }}
-                                                onClick={() => handleAddToCart(plant)}
-                                            >
-                                                {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
-                                            </button>
-                                        </div>
-                                    ))}
-                                </div>
+                </div>
+                <a onClick={goToProductList}
+                    style={{
+                        color: 'white',
+                        fontSize: '30px',
+                        textDecoration: 'none',
+                    }}>
+                    Plants
+                </a>
+                <div className="menu">
+                    <a href="#" onClick={handleCartIconClick} style={{ color: 'white', fontSize: '30px', textDecoration: 'none' }}>
+                        <h1 className='cart'>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor" height="68" width="68">
+                                <rect width="156" height="156" fill="none"></rect>
+                                <circle cx="80" cy="216" r="12"></circle>
+                                <circle cx="184" cy="216" r="12"></circle>
+                                <path d="M42.3,72H221.7l-26.4,92.4A15.9,15.9,0,0,1,179.9,176H84.1a15.9,15.9,0,0,1-15.4-11.6L32.5,37.8A8,8,0,0,0,24.8,32H8" fill="none" stroke="#faf9f9" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" id="mainIconPathAttribute"></path>
+                            </svg>
+                            <span className="cart_quantity_count">{cartItemCount}</span>
+                        </h1>
+                    </a>
+                </div>
+            </div>
+            {!showCartPage ? (
+                <div className="product-grid">
+                    {plantsArray.map((category, index) => (
+                        <div key={index}>
+                            <h1 style={{textAlign:'center'}}>{category.category}</h1>
+                            <div className="product-list">
+                                {category.plants.map((plant, plantIndex) => (
+                                    <div className="product-card" key={plantIndex}>
+                                        <div className="product-title">{plant.name}</div>
+                                        <img className="product-image" src={plant.image} alt={plant.name} />
+                                        <div className="product-cost">{plant.cost}</div>
+                                        <div className="product-description">{plant.description}</div>
+                                        <button
+                                            style={{
+                                                backgroundColor: addedToCart[plant.name] ? '#ccc' : '#4caf50',
+                                                color: '#fff',
+                                                padding: '8px 16px',
+                                                border: 'none',
+                                                cursor: 'pointer',
+                                            }}
+                                            onClick={() => handleAddToCart(plant)}
+                                        >
+                                            {addedToCart[plant.name] ? 'Added to Cart' : 'Add to Cart'}
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             ) : (
                 <CartItem goToProductList={goToProductList} />
