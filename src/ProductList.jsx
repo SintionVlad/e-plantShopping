@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+// import './ProductList.css';
+// import { useDispatch } from 'react-redux';
+// import { addItem } from './CreatSlice';
+// import CartItem from './CartItem';
+
+// function ProductList() {
+//     const [addedToCart, setAddedToCart] = useState({});
+//     const [cartItemCount, setCartItemCount] = useState(0);
+//     const dispatch = useDispatch();
+//     const [showCartPage, setShowCartPage] = useState(false);
+
+import React, { useEffect, useState } from 'react';
 import './ProductList.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CreatSlice';
 import CartItem from './CartItem';
 
 function ProductList() {
     const [addedToCart, setAddedToCart] = useState({});
-    const [cartItemCount, setCartItemCount] = useState(0);
     const dispatch = useDispatch();
     const [showCartPage, setShowCartPage] = useState(false);
+    
+    // Adăugăm selector pentru a obține numărul total de produse din Redux
+    const cartItemCount = useSelector(state => state.cart.items.reduce((total, item) => total + item.quantity, 0));
+
 
     const plantsArray = [
         {
@@ -225,7 +240,6 @@ function ProductList() {
                 ...prevState,
                 [product.name]: true,
             }));
-            setCartItemCount((prevCount) => prevCount + 1);
         }
     };
 
